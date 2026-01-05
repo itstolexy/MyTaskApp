@@ -126,7 +126,9 @@ export default function ExploreScreen() {
           <Text style={styles.sectionTitle}>Recent Activity</Text>
           <View style={styles.activityCard}>
             <View style={styles.activityItem}>
-              <View style={styles.activityIcon}>✓</View>
+              <View style={styles.activityIcon}>
+                <Text style={styles.activityIconText}>✓</Text>
+              </View>
               <View style={styles.activityInfo}>
                 <Text style={styles.activityText}>
                   Completed 3 high priority tasks
@@ -135,7 +137,9 @@ export default function ExploreScreen() {
               </View>
             </View>
             <View style={styles.activityItem}>
-              <View style={styles.activityIcon}>📊</View>
+              <View style={styles.activityIcon}>
+                <Text style={styles.activityIconText}>📊</Text>
+              </View>
               <View style={styles.activityInfo}>
                 <Text style={styles.activityText}>
                   Reached 65% completion rate
@@ -144,7 +148,9 @@ export default function ExploreScreen() {
               </View>
             </View>
             <View style={styles.activityItem}>
-              <View style={styles.activityIcon}>🔥</View>
+              <View style={styles.activityIcon}>
+                <Text style={styles.activityIconText}>🔥</Text>
+              </View>
               <View style={styles.activityInfo}>
                 <Text style={styles.activityText}>
                   12-day streak milestone!
@@ -344,7 +350,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginRight: 12,
+  },
+  activityIconText: {
     fontSize: 18,
+    color: "#8B5CF6",
   },
   activityInfo: {
     flex: 1,

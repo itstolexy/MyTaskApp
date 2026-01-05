@@ -1,6 +1,7 @@
-// app/(tabs)/profile.tsx
+import SignOutModal from "@/components/signoutModal";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
+
 import React, { useEffect, useState } from "react";
 import {
   SafeAreaView,
@@ -15,6 +16,7 @@ export default function ProfileScreen() {
   const [userName, setUserName] = useState("User");
   const [userEmail, setUserEmail] = useState("user@example.com");
   const [initials, setInitials] = useState("U");
+  const [signOutVisible, setSignOutVisible] = useState(false);
 
   // Load user data when component mounts
   useEffect(() => {
@@ -42,18 +44,6 @@ export default function ProfileScreen() {
       }
     } catch (error) {
       console.error("Error loading user data:", error);
-    }
-  };
-
-  const handleSignOut = async () => {
-    try {
-      // Clear user data from AsyncStorage
-      await AsyncStorage.removeItem("userName");
-      await AsyncStorage.removeItem("userEmail");
-      // Navigate back to login
-      router.replace("/");
-    } catch (error) {
-      console.error("Error signing out:", error);
     }
   };
 
@@ -103,7 +93,7 @@ export default function ProfileScreen() {
             </View>
             <View style={styles.statDivider} />
             <View style={styles.statItem}>
-              <Text style={styles.statValue}>68%</Text>
+              <Text style={styles.statValue}>80%</Text>
               <Text style={styles.statLabel}>Success</Text>
             </View>
             <View style={styles.statDivider} />
@@ -176,7 +166,7 @@ export default function ProfileScreen() {
 
           <TouchableOpacity
             style={[styles.actionButton, styles.actionButtonDanger]}
-            onPress={handleSignOut}
+            onPress={() => setSignOutVisible(true)}
           >
             <Text
               style={[styles.actionButtonText, styles.actionButtonTextDanger]}
@@ -185,6 +175,17 @@ export default function ProfileScreen() {
             </Text>
           </TouchableOpacity>
         </View>
+
+        <SignOutModal
+          visible={signOutVisible}
+          onCancel={() => setSignOutVisible(false)}
+          onConfirm={async () => {
+            setSignOutVisible(false);
+            await AsyncStorage.removeItem("userName");
+            await AsyncStorage.removeItem("userEmail");
+            router.replace("/");
+          }}
+        />
 
         {/* App Info */}
         <View style={styles.footer}>
